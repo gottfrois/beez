@@ -21,10 +21,6 @@ module Beez
       end
     end
 
-    def quiet
-      @pollers.each(&:shutdown)
-    end
-
     def stop
       @pollers.each(&:shutdown)
     end
