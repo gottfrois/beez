@@ -1,25 +1,36 @@
+require "json"
+
 module Beez
   module Worker
-    attr_accessor :client, :type, :max_jobs_to_activate, :poll_interval, :timeout, :variables
+    attr_accessor :client, :logger, :type, :max_jobs_to_activate, :poll_interval, :timeout, :variables
 
     def self.included(base)
       base.extend(ClassMethods)
       Beez.register_worker(base)
     end
 
-    def complete_job(job, variables: {}.to_json)
+    def initialize(client, logger: ::Beez.logger)
+      @client = client
+      @logger = logger
+    end
+
+    def complete_job(job, variables: {})
+      logger.info "Done processing job #{job.type} #{job.key}"
       client.complete_job(::Zeebe::Client::GatewayProtocol::CompleteJobRequest.new(
         jobKey: job.key,
-        variables: variables,
+        variables: Hash(variables).to_json,
       ))
     end
 
     def fail_job(job, reason: "")
+      logger.error "Failed processing job #{job.type} #{job.key}: #{reason}"
       client.fail_job(::Zeebe::Client::GatewayProtocol::FailJobRequest.new(
         jobKey: job.key,
         retries: job.retries - 1,
         errorMessage: reason,
       ))
+    rescue => e
+      logger.error e.message
     end
 
     module ClassMethods
@@ -52,7 +63,7 @@ module Beez
       end
 
       def get_timeout
-        @timeout || 5
+        @timeout || 30
       end
 
       def variables(variables)

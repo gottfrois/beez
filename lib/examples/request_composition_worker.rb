@@ -1,15 +1,17 @@
-require 'beez'
+require "beez"
 
 module Beez
   class RequestCompositionWorker
     include ::Beez::Worker
 
-    FooError = Class.new(StandardError)
-
     type "request-composition"
+    max_jobs_to_activate 5
+    poll_interval 1
 
     def process(job)
-      puts "[#{self.class.name}] Processing #{job.inspect}"
+      r = rand(30)
+      logger.info "Processing job #{job.type} #{job.key} by waiting #{r}s"
+      sleep r
     end
   end
 end

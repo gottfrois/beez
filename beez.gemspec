@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "zeebe-client", "~> 0.7"
+  spec.add_dependency "concurrent-ruby", "~> 1.0"
 
   spec.add_development_dependency "pry"
   spec.add_development_dependency "bundler", "~> 1.17"

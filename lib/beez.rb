@@ -1,9 +1,16 @@
+require "concurrent"
 require "zeebe/client"
+
+require "beez/configurable"
+require "beez/logging"
 require "beez/worker"
 require "beez/version"
 
 module Beez
-  class Error < StandardError; end
+  extend ::Beez::Configurable
+  extend ::Beez::Logging
+
+  # class Error < StandardError; end
 
   def self.register_worker(worker)
     self.workers << worker

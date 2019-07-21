@@ -1,15 +1,17 @@
-require 'beez'
+require "beez"
 
 module Beez
   class TransitionToIncompleteWorker
     include ::Beez::Worker
 
-    FooError = Class.new(StandardError)
-
-    type "transiton-to-incomplete"
+    type "transition-to-incomplete"
+    max_jobs_to_activate 1
+    poll_interval 1
 
     def process(job)
-      puts "[#{self.class.name}] Processing #{job.inspect}"
+      r = rand(30)
+      logger.info "Processing job #{job.type} #{job.key} by waiting #{r}s"
+      sleep r
     end
   end
 end

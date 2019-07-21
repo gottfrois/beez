@@ -1,7 +1,5 @@
-require 'pry'
-
 module Beez
-  class JobPoller
+  class Poller
     attr_reader :client, :worker, :remaining
 
     def initialize(client:, worker:)
@@ -11,25 +9,34 @@ module Beez
     end
 
     def poll
-      puts "Polling #{max_jobs_to_activate} jobs to worker #{worker_name} every #{worker_poll_interval}s ; remaining is #{@remaining}..."
-      activate_jobs
-      sleep(worker_poll_interval)
+      activate_jobs if activate_jobs?
     end
 
     private
 
+    def activate_jobs?
+      remaining <= worker_max_jobs_to_activate
+    end
+
     def activate_jobs
       activate_jobs_request.each do |response|
         @remaining += response.jobs.count
+
+        logger.info "Polled jobs #{response.jobs.map(&:key)} for worker #{worker_name}..."
+
         response.jobs.each do |job|
-          begin
-            w = worker.new
-            w.client = client
-            w.process(job)
-            w.complete_job(job)
-          rescue => e
-            w.fail_job(job, reason: e.message)
+          ::Concurrent::Future.execute do
+            w = worker.new(client)
+            begin
+              w.process(job)
+              w.complete_job(job)
+            rescue => e
+              w.fail_job(job, reason: e.message)
+            ensure
+              @remaining -= 1
+            end
           end
+
         end
       end
     end
@@ -38,7 +45,7 @@ module Beez
       client.activate_jobs(::Zeebe::Client::GatewayProtocol::ActivateJobsRequest.new(
         type: worker_type,
         worker: worker_name,
-        timeout: worker_timeout,
+        timeout: 30_000,
         maxJobsToActivate: max_jobs_to_activate,
         fetchVariable: worker_variables_to_fetch,
       ))
@@ -56,10 +63,6 @@ module Beez
       worker.get_max_jobs_to_activate
     end
 
-    def worker_poll_interval
-      worker.get_poll_interval
-    end
-
     def worker_timeout
       worker.get_timeout
     end
@@ -69,7 +72,11 @@ module Beez
     end
 
     def max_jobs_to_activate
-      worker_max_jobs_to_activate - remaining
+      worker_max_jobs_to_activate - @remaining
+    end
+
+    def logger
+      ::Beez.logger
     end
   end
 end
