@@ -45,7 +45,7 @@ module Beez
       client.activate_jobs(::Zeebe::Client::GatewayProtocol::ActivateJobsRequest.new(
         type: worker_type,
         worker: worker_name,
-        timeout: 30_000,
+        timeout: worker_timeout * 1000,
         maxJobsToActivate: max_jobs_to_activate,
         fetchVariable: worker_variables_to_fetch,
       ))

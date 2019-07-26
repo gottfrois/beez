@@ -25,5 +25,6 @@ module Beez
   end
 end
 
-require "examples/request_composition_worker"
-require "examples/transition_to_incomplete_worker"
+require "examples/initiate_payment_worker"
+require "examples/ship_with_insurance_worker"
+require "examples/ship_without_insurance_worker"
