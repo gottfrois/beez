@@ -42,13 +42,13 @@ module Beez
     end
 
     def activate_jobs_request
-      client.activate_jobs(::Zeebe::Client::GatewayProtocol::ActivateJobsRequest.new(
+      client.activate_jobs(
         type: worker_type,
         worker: worker_name,
         timeout: worker_timeout * 1000,
         maxJobsToActivate: max_jobs_to_activate,
         fetchVariable: worker_variables_to_fetch,
-      ))
+      )
     end
 
     def worker_type

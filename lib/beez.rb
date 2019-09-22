@@ -1,8 +1,8 @@
 require "concurrent"
-require "zeebe/client"
 
 require "beez/configurable"
 require "beez/logging"
+require "beez/client"
 require "beez/worker"
 require "beez/version"
 
@@ -21,7 +21,7 @@ module Beez
   end
 
   def self.client
-    @client ||= ::Zeebe::Client::GatewayProtocol::Gateway::Stub.new('localhost:26500', :this_channel_is_insecure)
+    @client ||= ::Beez::Client.new
   end
 end
 

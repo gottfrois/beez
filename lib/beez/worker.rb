@@ -1,4 +1,4 @@
-require "json"
+require 'json'
 
 module Beez
   module Worker
@@ -16,19 +16,19 @@ module Beez
 
     def complete_job(job, variables: {})
       logger.info "Completed processing job #{job.type} #{job.key}"
-      client.complete_job(::Zeebe::Client::GatewayProtocol::CompleteJobRequest.new(
+      client.complete_job(
         jobKey: job.key,
         variables: Hash(variables).to_json,
-      ))
+      )
     end
 
     def fail_job(job, reason: "")
       logger.error "Failed processing job #{job.type} #{job.key}: #{reason}"
-      client.fail_job(::Zeebe::Client::GatewayProtocol::FailJobRequest.new(
+      client.fail_job(
         jobKey: job.key,
         retries: job.retries - 1,
         errorMessage: reason,
-      ))
+      )
     rescue => e
       logger.error e.message
     end
