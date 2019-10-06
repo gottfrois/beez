@@ -1,4 +1,4 @@
-require "beez/configuration"
+require 'beez/configuration'
 
 module Beez
   module Configurable

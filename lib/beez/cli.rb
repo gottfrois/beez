@@ -1,7 +1,7 @@
-require "singleton"
-require "optparse"
-require "beez"
-require "beez/launcher"
+require 'singleton'
+require 'optparse'
+require 'beez'
+require 'beez/launcher'
 
 module Beez
   class CLI
@@ -39,7 +39,7 @@ module Beez
       ::Beez.logger.info "Starting processing, hit Ctrl-C to stop"
 
       begin
-        launcher.run
+        launcher.start
 
         while readable_io = IO.select([self_read])
           signal = readable_io.first[0].gets.strip

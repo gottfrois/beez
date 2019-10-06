@@ -1,35 +1,32 @@
-require "beez/poller"
-require "beez/poller_observer"
+require 'beez/supervisor'
 
 module Beez
   class Launcher
-    attr_reader :pollers
+
+    attr_reader :supervisor
 
     def initialize
-      @pollers = []
+      @supervisor = ::Beez::Supervisor.new
     end
 
-    def run
-      @pollers = workers.map do |worker|
-        poller = ::Beez::Poller.new(client: client, worker: worker)
-        task = ::Concurrent::TimerTask.new(run_now: true, execution_interval: worker.get_poll_interval, timeout_interval: worker.get_timeout) do
-          poller.poll
-        end
-        task.add_observer(::Beez::PollerObserver.new)
-        task.execute
-        task
-      end
+    # Starts the supervisor and job processors.
+    def start
+      supervisor.start
     end
 
+    # Tells the supervisor to stop processing any more jobs.
+    def quiet
+      supervisor.quiet
+    end
+
+    # Tells the supervisor to stop job processors. This method blocks until
+    # all processors are complete and stopped. It can take up to configurable
+    # timeout.
     def stop
-      @pollers.each(&:shutdown)
+      supervisor.stop
     end
 
     private
-
-    def workers
-      ::Beez.workers.to_a
-    end
 
     def client
       ::Beez.client

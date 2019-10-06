@@ -2,16 +2,15 @@ require 'json'
 
 module Beez
   module Worker
-    attr_accessor :client, :logger, :type, :max_jobs_to_activate, :poll_interval, :timeout, :variables
+    attr_accessor :client, :type, :max_jobs_to_activate, :poll_interval, :timeout, :variables
 
     def self.included(base)
       base.extend(ClassMethods)
       Beez.register_worker(base)
     end
 
-    def initialize(client, logger: ::Beez.logger)
+    def initialize(client)
       @client = client
-      @logger = logger
     end
 
     def complete_job(job, variables: {})
@@ -31,6 +30,10 @@ module Beez
       )
     rescue => e
       logger.error e.message
+    end
+
+    def logger
+      ::Beez.logger
     end
 
     module ClassMethods

@@ -2,6 +2,7 @@ require 'zeebe/client'
 
 module Beez
   class Client
+
     attr_reader :client
 
     def initialize(url: ::Beez.config.zeebe_url, opts: :this_channel_is_insecure)
@@ -9,21 +10,34 @@ module Beez
     end
 
     def activate_jobs(params = {})
-      client.activate_jobs(
+      run(:activate_jobs,
         ::Zeebe::Client::GatewayProtocol::ActivateJobsRequest.new(params)
       )
     end
 
     def complete_job(params = {})
-      client.complete_job(
+      run(:complete_job,
         ::Zeebe::Client::GatewayProtocol::CompleteJobRequest.new(params)
       )
     end
 
     def fail_job(params = {})
-      client.fail_job(
+      run(:fail_job,
         ::Zeebe::Client::GatewayProtocol::FailJobRequest.new(params)
       )
+    end
+
+    private
+
+    def run(method, params = {})
+      client.public_send(method, params)
+    rescue ::GRPC::Unavailable => exception
+      logger.error exception.message
+      raise exception
+    end
+
+    def logger
+      ::Beez.logger
     end
   end
 end
