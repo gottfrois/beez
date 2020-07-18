@@ -1,6 +1,6 @@
 # Beez
 
-Simple, efficient ruby workers for [Zeebe](https://zeebe.io/) workflows.
+Simple, efficient ruby workers for [Zeebe](https://zeebe.io/) business processes.
 
 Beez uses threads to handle many jobs at the same time in the same process. It
 does not require Rails but will integrate tightly with Rails to start working

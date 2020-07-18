@@ -1,8 +1,7 @@
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
-
-# Specify your gem's dependencies in beez.gemspec
+# Specify your gem's dependencies in foo.gemspec
 gemspec
 
-gem 'rails', '>= 4'
+gem "rake", "~> 12.0"
+gem "rails", ">= 4"
