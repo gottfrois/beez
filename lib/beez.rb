@@ -24,7 +24,3 @@ module Beez
     @client ||= ::Beez::Client.new
   end
 end
-
-require "examples/initiate_payment_worker"
-require "examples/ship_with_insurance_worker"
-require "examples/ship_without_insurance_worker"
