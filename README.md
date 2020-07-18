@@ -42,6 +42,9 @@ We will be taking the classic Order Process workflows as an example.
 
 ![Order Process](https://docs.zeebe.io/getting-started/img/tutorial-3.0-complete-workflow.png)
 
+By default Beez tries to connect to a Zeebe instance configured using the
+`ZEEBE_URL` env variable.
+
 ### Rails
 
 1. Create the workers anywhere you want in your Rails application:
