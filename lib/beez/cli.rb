@@ -14,7 +14,6 @@ module Beez
 
     def parse(argv = ARGV)
       parse_options(argv)
-      validate!
     end
 
     def run
@@ -46,8 +45,12 @@ module Beez
         end
 
         p.on "-r", "--require [PATH|DIR]", "Location of Rails application with workers or file to require" do |arg|
-          raise ArgumentError, "#{arg} doesn't exist" if !File.exist?(arg) && !File.directory?(arg)
-          config.require = arg
+          if !File.exist?(arg) ||
+              (File.directory?(arg) && !File.exist?("#{arg}/config/application.rb"))
+            raise ArgumentError, "#{arg} is not a ruby file nor a rails application"
+          else
+            config.require = arg
+          end
         end
 
         p.on "-t", "--timeout NUM", "Shutdown timeout" do |arg|
@@ -71,18 +74,6 @@ module Beez
 
           exit(1)
         end
-      end
-    end
-
-    def validate!
-      if !File.exist?(config.require) ||
-          (File.directory?(config.require) && !File.exist?("#{config.require}/config/application.rb"))
-        logger.info "==========================================================="
-        logger.info "  Please point Beez to a Rails application or a Ruby file  "
-        logger.info "  to load your worker classes with -r [DIR|FILE]."
-        logger.info "==========================================================="
-
-        exit(1)
       end
     end
 

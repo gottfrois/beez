@@ -17,6 +17,18 @@ RSpec.describe Beez::CLI do
         subject.parse(%w[beez -r ./spec/dummy/])
         expect(Beez.config.require).to eq("./spec/dummy/")
       end
+
+      it 'raises when provided value is not a ruby file' do
+        expect {
+          subject.parse(%w[beez -t 0 -r ./spec/dummy/Rakefile])
+        }.to raise_error(ArgumentError)
+      end
+
+      it 'raises when provided value is not a rails application' do
+        expect {
+          subject.parse(%w[beez -t 0 -r ./spec/])
+        }.to raise_error(ArgumentError)
+      end
     end
 
     describe 'timeout' do
