@@ -65,15 +65,15 @@ class ShipWithInsuranceWorker
   def process(job)
     # do something
   end
+end
 
-  class ShipWithoutInsuranceWorker
-    include ::Beez::Worker
+class ShipWithoutInsuranceWorker
+  include ::Beez::Worker
 
-    type "ship-without-insurance"
+  type "ship-without-insurance"
 
-    def process(job)
-      # do something
-    end
+  def process(job)
+    # do something
   end
 end
 ```
