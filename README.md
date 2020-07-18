@@ -4,7 +4,7 @@ Simple, efficient ruby workers for [Zeebe](https://zeebe.io/) workflows.
 
 Beez uses threads to handle many jobs at the same time in the same process. It
 does not require Rails but will integrate tightly with Rails to start working
-with workflows dead simple.
+with workflows.
 
 ## Disclaimer
 
@@ -131,3 +131,9 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/gottfr
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Thanks
+
+I would like to thank you the authors and contributors behind
+[Sidekiq](https://github.com/mperham/sidekiq) on which I have taken lots of good
+ideas to build this gem.
