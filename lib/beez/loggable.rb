@@ -1,5 +1,5 @@
 module Beez
-  module Logging
+  module Loggable
     def logger
       @logger || setup_logger
     end

@@ -1,14 +1,14 @@
 require 'concurrent'
 
 require 'beez/configurable'
-require 'beez/logging'
+require 'beez/Loggable'
 require 'beez/client'
 require 'beez/worker'
 require 'beez/version'
 
 module Beez
   extend ::Beez::Configurable
-  extend ::Beez::Logging
+  extend ::Beez::Loggable
 
   # class Error < StandardError; end
 
@@ -26,5 +26,5 @@ module Beez
 end
 
 require "examples/initiate_payment_worker"
-# require "examples/ship_with_insurance_worker"
-# require "examples/ship_without_insurance_worker"
+require "examples/ship_with_insurance_worker"
+require "examples/ship_without_insurance_worker"
