@@ -5,13 +5,12 @@ module Workers
     include ::Beez::Worker
 
     type "initiate-payment"
-    max_jobs_to_activate 5
+    max_jobs_to_activate 20
     poll_interval 1
     timeout 30
 
     def process(job)
-      rand(35).times do |i|
-        logger.info "Processing job #{job.type} #{job.key} by waiting #{i}s"
+      rand(5).times do |i|
         sleep 1
       end
     end
@@ -25,8 +24,7 @@ module Workers
     poll_interval 1
 
     def process(job)
-      rand(35).times do |i|
-        logger.info "Processing job #{job.type} #{job.key} by waiting #{i}s"
+      rand(5).times do |i|
         sleep 1
       end
     end
@@ -40,8 +38,8 @@ module Workers
     poll_interval 1
 
     def process(job)
-      rand(35).times do |i|
-        logger.info "Processing job #{job.type} #{job.key} by waiting #{i}s"
+      raise ArgumentError.new("orderValue can't be < 10") if JSON.parse(job.variables)["orderValue"].to_i < 10
+      rand(5).times do |i|
         sleep 1
       end
     end

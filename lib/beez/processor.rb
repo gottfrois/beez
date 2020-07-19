@@ -48,9 +48,15 @@ module Beez
     def process(job)
       worker = worker_class.new(client)
       begin
+        logger.info "class=#{worker_class} jid=#{job.key} Start processing #{job.type}"
+
         worker.process(job)
         worker.complete_job(job)
+
+        logger.info "class=#{worker_class} jid=#{job.key} Done processing #{job.type}"
       rescue => exception
+        logger.info "class=#{worker_class} jid=#{job.key} Failed processing #{job.type}: #{exception.message}"
+
         worker.fail_job(job, reason: exception.message)
         raise exception
       ensure
