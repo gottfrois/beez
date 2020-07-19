@@ -138,10 +138,6 @@ end
 Let's get the full picture by deploying the following workflow to Zeebe and
 define simple workers as plain Ruby objects.
 
-[![Watch the video](https://github.com/gottfrois/beez/blob/master/assets/images/video-preview.png?raw=true)](https://d.pr/v/LHLJCQ)
-
-We will be deploying the following workflow:
-
 ![Order Process](https://docs.zeebe.io/getting-started/img/tutorial-3.0-complete-workflow.png)
 
 1. Start Zeebe and Zeebe Operate:
