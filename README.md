@@ -7,7 +7,7 @@ Engine for Microservices Orchestration.
 microservices orchestration. [Zeebe](https://zeebe.io/) scales orchestration of
 workers and microservices using visual workflows.
 
-![Zeebe Operate](https://github.com/gottfrois/beez/assets/images/zeebe-operate.jpeg)
+![Zeebe Operate](https://github.com/gottfrois/beez/blob/master/assets/images/zeebe-operate.jpeg?raw=true)
 
 ## Why Zeebe and Beez? ❓
 
