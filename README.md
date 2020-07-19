@@ -138,7 +138,7 @@ end
 Let's get the full picture by deploying the following workflow to Zeebe and
 define simple workers as plain Ruby objects.
 
-![Demo](https://cdn-std.droplr.net/files/acc_8459/LHLJCQ)
+![Demo](https://d.pr/v/LHLJCQ)
 
 We will be deploying the following workflow:
 
