@@ -1,34 +1,43 @@
-# Welcome on Beez 👋
+<h1 align="center">
+  <br>
+  <a href="https://github.com/gottfrois/beez"><img src="https://github.com/gottfrois/beez/blob/readme/assets/images/bee.png?raw=true" alt="Beez" width="200"></a>
+  <br>
+  Beez
+</h1>
 
-Simple efficient ruby workers for [Zeebe](https://zeebe.io/), the workflow
-Engine for Microservices Orchestration.
+<h4 align="center">
+  Simple, efficient ruby workers for <a href="https://zeebe.io/" target="_blank">Zeebe</a>.
+</h4>
+
+<p align="center">
+  <a href="https://badge.fury.io/rb/beez"><img src="https://badge.fury.io/rb/beez.svg" alt="Gem Version" height="18"></a>
+</p>
+
+<p align="center">
+  <a href="#features-">Features</a> •
+  <a href="#disclaimer-%EF%B8%8F">Disclaimer</a> •
+  <a href="#getting-started-">Getting Started</a> •
+  <a href="#usage-">Usage</a> •
+  <a href="#configuration-">Configuration</a> •
+  <a href="#example-">Example</a> •
+  <a href="#license-">License</a> •
+  <a href="#credits-">Credits</a>
+</p>
+<br>
+
+![Zeebe Operate](https://github.com/gottfrois/beez/blob/master/assets/images/zeebe-operate.jpeg?raw=true)
+
+## Features ✨
 
 [Zeebe](https://zeebe.io/) is a free and source-available workflow engine for
 microservices orchestration. [Zeebe](https://zeebe.io/) scales orchestration of
 workers and microservices using visual workflows.
-
-![Zeebe Operate](https://github.com/gottfrois/beez/blob/master/assets/images/zeebe-operate.jpeg?raw=true)
-
-## Why Zeebe and Beez? ❓
 
 * Zeebe lets you define workflows visually in [BPMN 2.0](http://www.bpmn.org/)
 * Beez integrates with you Rails application
 * Beez runs your workers asynchronously
 * Beez automatically marks your jobs as failures uppon Ruby exceptions
 * Beez has very few dependencies
-
-## Table of Contents
-
-- [Disclaimer](#disclaimer-)
-- [Getting Started](#getting-started-)
-  - [Prerequisites](#prerequisites-)
-  - [How It Works](#how-it-works-)
-  - [Installation](#installation-)
-  - [Usage](#usage-)
-  - [Configuration](#configuration-)
-- [Contributing](#contributing-)
-- [License](#licence-)
-- [Acknowledgements](#acknowledgements-)
 
 ## Disclaimer ⚠️
 
@@ -133,7 +142,7 @@ Beez.configure do |config|
 end
 ````
 
-### Example
+### Example 📘
 
 Let's get the full picture by deploying the following workflow to Zeebe and
 define simple workers as plain Ruby objects.
@@ -195,7 +204,8 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/gottfr
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-## Acknowledgements ♥️
+## Credits 👏
 
 * The [Sidekiq](https://github.com/mperham/sidekiq) authors and contributors for
 their inspirational codebase which helped me to build this gem
+* [Logo vector created by raftel - www.freepik.com](https://www.freepik.com/free-photos-vectors/logo)
