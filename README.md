@@ -25,15 +25,14 @@
 </p>
 <br>
 
-![Zeebe Operate](https://github.com/gottfrois/beez/blob/master/assets/images/zeebe-operate.jpeg?raw=true)
+<p align="center">
+  <img src="https://github.com/gottfrois/beez/blob/master/assets/images/zeebe-operate.jpeg?raw=true" alt="Zeebe Operate">
+  <em>Beez lets you consume Zeebe workflows like this one!</em>
+</p>
 
 ## Features ✨
 
-[Zeebe](https://zeebe.io/) is a free and source-available workflow engine for
-microservices orchestration. [Zeebe](https://zeebe.io/) scales orchestration of
-workers and microservices using visual workflows.
-
-* Zeebe lets you define workflows visually in [BPMN 2.0](http://www.bpmn.org/)
+* Beez integrates with [Zeebe](https://zeebe.io/), a free and source-available workflow engine for microservices orchestration
 * Beez integrates with you Rails application
 * Beez runs your workers asynchronously
 * Beez automatically marks your jobs as failures uppon Ruby exceptions
@@ -49,7 +48,7 @@ workers and microservices using visual workflows.
 
 These instructions will help you get started with [Zeebe](https://zeebe.io/)
 and Beez. [Zeebe](https://zeebe.io/) already provides an extensive [documentation](https://docs.zeebe.io/)
-I highly suggest you to check out before.
+I highly suggest you to check it out before.
 
 ### Prerequisites ☔️
 
