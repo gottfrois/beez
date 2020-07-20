@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/gottfrois/beez"><img src="https://github.com/gottfrois/beez/blob/readme/assets/images/bee.png?raw=true" alt="Beez" width="200"></a>
+  <a href="https://github.com/gottfrois/beez"><img src="https://github.com/gottfrois/beez/blob/master/assets/images/bee.png?raw=true" alt="Beez" width="200"></a>
   <br>
   Beez
 </h1>
