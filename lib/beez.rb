@@ -1,7 +1,7 @@
 require 'concurrent'
 
 require 'beez/configurable'
-require 'beez/Loggable'
+require 'beez/loggable'
 require 'beez/client'
 require 'beez/worker'
 require 'beez/version'
