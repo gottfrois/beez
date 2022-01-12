@@ -2,7 +2,6 @@ require 'beez/supervisor'
 
 module Beez
   class Launcher
-
     attr_reader :supervisor
 
     def initialize

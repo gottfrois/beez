@@ -32,17 +32,17 @@
 
 ## Features ✨
 
-* Beez integrates with [Zeebe](https://zeebe.io/), a free and source-available workflow engine for microservices orchestration
-* Beez integrates with you Rails application
-* Beez runs your workers asynchronously
-* Beez automatically marks your jobs as failures uppon Ruby exceptions
-* Beez has very few dependencies
+- Beez integrates with [Zeebe](https://zeebe.io/), a free and source-available workflow engine for microservices orchestration
+- Beez integrates with you Rails application
+- Beez runs your workers asynchronously
+- Beez automatically marks your jobs as failures uppon Ruby exceptions
+- Beez has very few dependencies
 
 ## Disclaimer ⚠️
 
-* Beez is currently a pre-release
-* Beez has currently **not being tested in production**
-* Beez is currently lacking unit tests, any help is welcome!
+- Beez is currently a pre-release
+- Beez has currently **not being tested in production**
+- Beez is currently lacking unit tests, any help is welcome!
 
 ## Getting Started 🎓
 
@@ -52,9 +52,9 @@ I highly suggest you to check it out before.
 
 ### Prerequisites ☔️
 
-* You need [Zeebe up and running](https://docs.zeebe.io/introduction/install.html)
-* Ruby >= 2.5 & < 2.7
-* Rails >= 4 (optional)
+- You need [Zeebe up and running](https://docs.zeebe.io/introduction/install.html)
+- Ruby >= 2.5 & < 2.7
+- Rails >= 4 (optional)
 
 ### How It Works ⚙️
 
@@ -139,7 +139,7 @@ Beez.configure do |config|
   config.timeout = 30
   config.zeebe_url = ENV['ZEEBE_URL'] || 'localhost:26500'
 end
-````
+```
 
 ### Example 📘
 
@@ -158,13 +158,13 @@ docker-compose up
 
 2. Head to [http://localhost:8080](http://localhost:8080)
 
-* Login: `demo`
-* Password: `demo`
+- Login: `demo`
+- Password: `demo`
 
 3. Start Beez using our example workers located at [`examples/workers.rb`](https://github.com/gottfrois/beez/blob/master/examples/workers.rb):
 
 ```sh
-beez --timeout 5 --require examples/workers.rb
+beez --timeout 5 --require ./examples/workers.rb
 ```
 
 4. Start an `irb` session:
@@ -187,7 +187,7 @@ irb -r beez
 
 That's it!
 
-*Check out all the available commands in [`lib/beez/client.rb`](https://github.com/gottfrois/beez/blob/master/lib/beez/client.rb).*
+_Check out all the available commands in [`lib/beez/client.rb`](https://github.com/gottfrois/beez/blob/master/lib/beez/client.rb)._
 
 ## Development
 
@@ -205,6 +205,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Credits 👏
 
-* The [Sidekiq](https://github.com/mperham/sidekiq) authors and contributors for
-their inspirational codebase which helped me to build this gem
-* [Logo vector created by raftel - www.freepik.com](https://www.freepik.com/free-photos-vectors/logo)
+- The [Sidekiq](https://github.com/mperham/sidekiq) authors and contributors for
+  their inspirational codebase which helped me to build this gem
+- [Logo vector created by raftel - www.freepik.com](https://www.freepik.com/free-photos-vectors/logo)

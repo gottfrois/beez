@@ -1,9 +1,8 @@
 module Beez
   class Processor
-
     attr_reader :client, :worker_class, :busy_count, :timer
 
-    def initialize(client: ::Beez.client, worker_class:)
+    def initialize(worker_class:, client: ::Beez.client)
       @client = client
       @worker_class = worker_class
       @busy_count = ::Concurrent::AtomicFixnum.new(0)
@@ -45,6 +44,7 @@ module Beez
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
     def process(job)
       worker = worker_class.new(client)
       begin
@@ -54,15 +54,16 @@ module Beez
         worker.complete_job(job)
 
         logger.info "class=#{worker_class} jid=#{job.key} Done processing #{job.type}"
-      rescue => exception
-        logger.info "class=#{worker_class} jid=#{job.key} Failed processing #{job.type}: #{exception.message}"
+      rescue StandardError => e
+        logger.info "class=#{worker_class} jid=#{job.key} Failed processing #{job.type}: #{e.message}"
 
-        worker.fail_job(job, reason: exception.message)
-        raise exception
+        worker.fail_job(job, reason: e.message)
+        raise e
       ensure
         busy_count.decrement
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def activate_jobs_request
       client.activate_jobs(
@@ -70,7 +71,7 @@ module Beez
         worker: worker_name,
         timeout: worker_timeout * 1000,
         maxJobsToActivate: max_jobs_to_activate,
-        fetchVariable: worker_variables_to_fetch,
+        fetchVariable: worker_variables_to_fetch
       )
     end
 

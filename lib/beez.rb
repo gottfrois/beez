@@ -10,10 +10,8 @@ module Beez
   extend ::Beez::Configurable
   extend ::Beez::Loggable
 
-  # class Error < StandardError; end
-
   def self.register_worker(worker)
-    self.workers << worker
+    workers << worker
   end
 
   def self.workers

@@ -1,0 +1,24 @@
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Exclude:
+    - "lib/beez/worker.rb"
+
+Metrics/MethodLength:
+  Description: "Avoid methods longer than 15 lines of code."
+  Max: 15
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*.gemspec"
+    - "spec/**/*"
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: disable
+  Exclude:
+    - "spec/dummy/**/*"

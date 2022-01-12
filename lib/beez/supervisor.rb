@@ -2,7 +2,6 @@ require 'beez/processor'
 
 module Beez
   class Supervisor
-
     def initialize
       @processors = []
     end
@@ -15,7 +14,7 @@ module Beez
     end
 
     def quiet
-      logger.info "Terminating workers"
+      logger.info 'Terminating workers'
       @processors.each(&:stop)
     end
 

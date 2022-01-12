@@ -5,10 +5,8 @@ module Beez
         @app = app
       end
 
-      def call
-        @app.reloader.wrap do
-          yield
-        end
+      def call(&block)
+        @app.reloader.wrap(&block)
       end
 
       def inspect
