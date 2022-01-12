@@ -38,83 +38,88 @@ module Beez
       option_parser.parse!(argv)
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/BlockLength
     def option_parser
       OptionParser.new.tap do |p|
-        p.on "-e", "--env ENV", "Application environment" do |arg|
+        p.on '-e', '--env ENV', 'Application environment' do |arg|
           config.env = arg
         end
 
-        p.on "-r", "--require [PATH|DIR]", "Location of Rails application with workers or file to require" do |arg|
+        p.on '-r', '--require [PATH|DIR]', 'Location of Rails application with workers or file to require' do |arg|
           if !File.exist?(arg) ||
-              (File.directory?(arg) && !File.exist?("#{arg}/config/application.rb"))
+             (File.directory?(arg) && !File.exist?("#{arg}/config/application.rb"))
             raise ArgumentError, "#{arg} is not a ruby file nor a rails application"
           else
             config.require = arg
           end
         end
 
-        p.on "-t", "--timeout NUM", "Shutdown timeout" do |arg|
+        p.on '-t', '--timeout NUM', 'Shutdown timeout' do |arg|
           timeout = Integer(arg)
-          raise ArgumentError, "timeout must be a positive integer" if timeout <= 0
+          raise ArgumentError, 'timeout must be a positive integer' if timeout <= 0
+
           config.timeout = timeout
         end
 
-        p.on "-v", "--verbose", "Print more verbose output" do |arg|
+        p.on '-v', '--verbose', 'Print more verbose output' do |_arg|
           ::Beez.logger.level = ::Logger::DEBUG
         end
 
-        p.on "-V", "--version", "Print version and exit" do |arg|
+        p.on '-V', '--version', 'Print version and exit' do |_arg|
           puts "Beez #{::Beez::VERSION}"
           exit(0)
         end
 
-        p.banner = "Usage: beez [options]"
-        p.on_tail "-h", "--help", "Show help" do
+        p.banner = 'Usage: beez [options]'
+        p.on_tail '-h', '--help', 'Show help' do
           puts p
 
           exit(1)
         end
       end
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/BlockLength
 
+    # rubocop:disable Metrics/AbcSize
     def boot
-      ENV["RACK_ENV"] = ENV["RAILS_ENV"] = config.env
+      ENV['RACK_ENV'] = ENV['RAILS_ENV'] = config.env
 
-      if File.directory?(config.require)
-        require 'rails'
-        if ::Rails::VERSION::MAJOR < 4
-          raise "Beez does not supports this version of Rails"
-        else
-          require File.expand_path("#{config.require}/config/environment.rb")
-          logger.info "Booted Rails #{::Rails.version} application in #{config.env} environment"
-        end
-      else
-        require config.require
-      end
+      require config.require and return unless File.directory?(config.require)
+
+      require 'rails'
+      raise 'Beez does not supports this version of Rails' if ::Rails::VERSION::MAJOR < 4
+
+      require File.expand_path("#{config.require}/config/environment.rb")
+      logger.info "Booted Rails #{::Rails.version} application in #{config.env} environment"
     end
+    # rubocop:enable Metrics/AbcSize
 
+    # rubocop:disable Metrics/AbcSize
     def launch(self_read)
       @launcher = ::Beez::Launcher.new
 
-      if config.env == "development" && $stdout.tty?
-        logger.info "Starting processing, hit Ctrl-C to stop"
-      end
+      logger.info 'Starting processing, hit Ctrl-C to stop' if config.env == 'development' && $stdout.tty?
 
       begin
         launcher.start
 
-        while readable_io = IO.select([self_read])
+        while (readable_io = IO.select([self_read]))
           signal = readable_io.first[0].gets.strip
           handle_signal(signal)
         end
       rescue Interrupt
-        logger.info "Shutting down"
+        logger.info 'Shutting down'
         launcher.stop
-        logger.info "Bye!"
+        logger.info 'Bye!'
 
         exit(0)
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def handle_signal(signal)
       handler = signal_handlers[signal]
@@ -127,8 +132,8 @@ module Beez
 
     def signal_handlers
       {
-        "INT" => ->(cli) { raise Interrupt },
-        "TERM" => ->(cli) { raise Interrupt },
+        'INT' => ->(_cli) { raise Interrupt },
+        'TERM' => ->(_cli) { raise Interrupt }
       }
     end
 

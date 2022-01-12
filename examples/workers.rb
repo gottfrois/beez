@@ -1,16 +1,16 @@
-require "beez"
+require 'beez'
 
 module Workers
   class InitiatePaymentWorker
     include ::Beez::Worker
 
-    type "initiate-payment"
+    type 'initiate-payment'
     max_jobs_to_activate 20
     poll_interval 1
     timeout 30
 
-    def process(job)
-      rand(5).times do |i|
+    def process(_job)
+      rand(5).times do |_i|
         sleep 1
       end
     end
@@ -19,12 +19,12 @@ module Workers
   class ShipWithInsuranceWorker
     include ::Beez::Worker
 
-    type "ship-with-insurance"
+    type 'ship-with-insurance'
     max_jobs_to_activate 5
     poll_interval 1
 
-    def process(job)
-      rand(5).times do |i|
+    def process(_job)
+      rand(5).times do |_i|
         sleep 1
       end
     end
@@ -33,13 +33,14 @@ module Workers
   class ShipWithoutInsuranceWorker
     include ::Beez::Worker
 
-    type "ship-without-insurance"
+    type 'ship-without-insurance'
     max_jobs_to_activate 5
     poll_interval 1
 
     def process(job)
-      raise ArgumentError.new("orderValue can't be < 10") if JSON.parse(job.variables)["orderValue"].to_i < 10
-      rand(5).times do |i|
+      raise ArgumentError, "orderValue can't be < 10" if JSON.parse(job.variables)['orderValue'].to_i < 10
+
+      rand(5).times do |_i|
         sleep 1
       end
     end

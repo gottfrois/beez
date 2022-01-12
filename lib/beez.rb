@@ -11,7 +11,7 @@ module Beez
   extend ::Beez::Loggable
 
   def self.register_worker(worker)
-    self.workers << worker
+    workers << worker
   end
 
   def self.workers
