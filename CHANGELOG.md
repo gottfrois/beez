@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgraded `zeebe-client` gem from `0.10.1` to `0.16.2` to be compatible with Zeebe `>= 1.0.0`
+- Rename `Beez::Client.create_workflow_instance` into `create_process_instance`
+- Rename `Beez::Client.deploy_workflow` into `deploy_process`
+
 ### Fixed
 
 - Fix a typo in the code base when requiring a ruby file
