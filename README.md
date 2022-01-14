@@ -143,10 +143,10 @@ end
 
 ### Example 📘
 
-Let's get the full picture by deploying the following workflow to Zeebe and
+Let's get the full picture by deploying a dummy [Order Process](https://github.com/gottfrois/beez/blob/master/bpmn/order-process.bpmn) workflow to Zeebe and
 define simple workers as plain Ruby objects.
 
-![Order Process](https://docs.zeebe.io/getting-started/img/tutorial-3.0-complete-workflow.png)
+![Order Process](https://github.com/gottfrois/beez/blob/master/assets/images/order-process.png?raw=true)
 
 1. Start Zeebe and Zeebe Operate:
 
@@ -177,9 +177,9 @@ irb -r beez
 
 ```ruby
 2.6.6 :001 > # Deploy a workflow to Zeebe
-2.6.6 :002 > Beez.client.deploy_workflow(workflows: [name: "order-process", type: :BPMN, definition: File.read('/path/to/beez/bpmn/order-process.bpmn')])
+2.6.6 :002 > Beez.client.deploy_process(workflows: [name: "order-process", type: :BPMN, definition: File.read('/path/to/beez/bpmn/order-process.bpmn')])
 2.6.6 :003 > # Create a new instance of this workflow
-2.6.6 :004 > Beez.client.create_workflow_instance(bpmnProcessId: "order-process", version: 1, variables: { orderId: "1234", orderValue: 94 }.to_json)
+2.6.6 :004 > Beez.client.create_process_instance(bpmnProcessId: "order-process", version: 1, variables: { orderId: "1234", orderValue: 94 }.to_json)
 2.6.6 :005 > # Watch Beez automatically executing the first task!
 2.6.6 :006 > # Publish a business message to simulate a payment received event
 2.6.6 :007 > Beez.client.publish_message(name: "payment-received", correlationKey: "1234")
