@@ -14,7 +14,6 @@ module Beez
     end
 
     def complete_job(job, variables: {})
-      logger.info "Completed processing job #{job.type} #{job.key}"
       client.complete_job(
         jobKey: job.key,
         variables: Hash(variables).to_json
@@ -22,7 +21,6 @@ module Beez
     end
 
     def fail_job(job, reason: '')
-      logger.error "Failed processing job #{job.type} #{job.key}: #{reason}"
       client.fail_job(
         jobKey: job.key,
         retries: job.retries - 1,

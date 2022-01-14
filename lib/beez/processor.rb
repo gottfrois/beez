@@ -45,15 +45,19 @@ module Beez
     end
 
     # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def process(job)
       worker = worker_class.new(client)
       begin
         logger.info "class=#{worker_class} jid=#{job.key} Start processing #{job.type}"
 
-        worker.process(job)
-        worker.complete_job(job)
+        duration =
+          measure_duration do
+            worker.process(job)
+            worker.complete_job(job)
+          end
 
-        logger.info "class=#{worker_class} jid=#{job.key} Done processing #{job.type}"
+        logger.info "class=#{worker_class} jid=#{job.key} duration=#{duration} Done processing #{job.type}"
       rescue StandardError => e
         logger.info "class=#{worker_class} jid=#{job.key} Failed processing #{job.type}: #{e.message}"
 
@@ -64,6 +68,15 @@ module Beez
       end
     end
     # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
+
+    def measure_duration
+      starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      yield
+      ending = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+
+      ending - starting
+    end
 
     def activate_jobs_request
       client.activate_jobs(
