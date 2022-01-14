@@ -151,8 +151,7 @@ define simple workers as plain Ruby objects.
 1. Start Zeebe and Zeebe Operate:
 
 ```sh
-git clone https://github.com/zeebe-io/zeebe-docker-compose
-cd zeebe-docker-compose/operate
+git clone https://github.com/camunda-cloud/camunda-cloud-get-started/
 docker-compose up
 ```
 
