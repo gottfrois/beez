@@ -43,6 +43,13 @@ module Beez
       )
     end
 
+    def deploy_resource(params = {})
+      run(
+        :deploy_resource,
+        ::Zeebe::Client::GatewayProtocol::DeployResourceRequest.new(params)
+      )
+    end
+
     def fail_job(params = {})
       run(
         :fail_job,

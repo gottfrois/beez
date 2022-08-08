@@ -53,8 +53,8 @@ module Beez
 
         duration =
           measure_duration do
-            worker.process(job)
-            worker.complete_job(job)
+            variables = worker.process(job)
+            worker.complete_job(job, variables: variables)
           end
 
         logger.info "class=#{worker_class} jid=#{job.key} duration=#{duration} Done processing #{job.type}"
